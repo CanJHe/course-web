@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.canJ.mapper.ResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.canJ.pojo.Resource" >
+    <id column="ResourceId" property="resourceid" jdbcType="INTEGER" />
+    <result column="CategoryId" property="categoryid" jdbcType="INTEGER" />
+    <result column="StudentId" property="studentid" jdbcType="INTEGER" />
+    <result column="TeacherId" property="teacherid" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="Descn" property="descn" jdbcType="VARCHAR" />
+    <result column="Image" property="image" jdbcType="VARCHAR" />
+    <result column="Code" property="code" jdbcType="VARCHAR" />
+    <result column="Level" property="level" jdbcType="VARCHAR" />
+    <result column="Upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ResourceId, CategoryId, StudentId, TeacherId, Name, Descn, Image, Code, Level, Upload_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.canJ.pojo.ResourceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource
+    where ResourceId = #{resourceid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from resource
+    where ResourceId = #{resourceid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.canJ.pojo.ResourceExample" >
+    delete from resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.canJ.pojo.Resource" >
+    insert into resource (ResourceId, CategoryId, StudentId, 
+      TeacherId, Name, Descn, 
+      Image, Code, Level, 
+      Upload_time)
+    values (#{resourceid,jdbcType=INTEGER}, #{categoryid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, 
+      #{teacherid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{descn,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
+      #{uploadTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.canJ.pojo.Resource" >
+    insert into resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceid != null" >
+        ResourceId,
+      </if>
+      <if test="categoryid != null" >
+        CategoryId,
+      </if>
+      <if test="studentid != null" >
+        StudentId,
+      </if>
+      <if test="teacherid != null" >
+        TeacherId,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="descn != null" >
+        Descn,
+      </if>
+      <if test="image != null" >
+        Image,
+      </if>
+      <if test="code != null" >
+        Code,
+      </if>
+      <if test="level != null" >
+        Level,
+      </if>
+      <if test="uploadTime != null" >
+        Upload_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceid != null" >
+        #{resourceid,jdbcType=INTEGER},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null" >
+        #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descn != null" >
+        #{descn,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.canJ.pojo.ResourceExample" resultType="java.lang.Integer" >
+    select count(*) from resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update resource
+    <set >
+      <if test="record.resourceid != null" >
+        ResourceId = #{record.resourceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryid != null" >
+        CategoryId = #{record.categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentid != null" >
+        StudentId = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherid != null" >
+        TeacherId = #{record.teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descn != null" >
+        Descn = #{record.descn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null" >
+        Image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        Code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        Level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadTime != null" >
+        Upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update resource
+    set ResourceId = #{record.resourceid,jdbcType=INTEGER},
+      CategoryId = #{record.categoryid,jdbcType=INTEGER},
+      StudentId = #{record.studentid,jdbcType=INTEGER},
+      TeacherId = #{record.teacherid,jdbcType=INTEGER},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Descn = #{record.descn,jdbcType=VARCHAR},
+      Image = #{record.image,jdbcType=VARCHAR},
+      Code = #{record.code,jdbcType=VARCHAR},
+      Level = #{record.level,jdbcType=VARCHAR},
+      Upload_time = #{record.uploadTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.canJ.pojo.Resource" >
+    update resource
+    <set >
+      <if test="categoryid != null" >
+        CategoryId = #{categoryid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null" >
+        StudentId = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null" >
+        TeacherId = #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="descn != null" >
+        Descn = #{descn,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        Image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        Code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        Level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        Upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ResourceId = #{resourceid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.canJ.pojo.Resource" >
+    update resource
+    set CategoryId = #{categoryid,jdbcType=INTEGER},
+      StudentId = #{studentid,jdbcType=INTEGER},
+      TeacherId = #{teacherid,jdbcType=INTEGER},
+      Name = #{name,jdbcType=VARCHAR},
+      Descn = #{descn,jdbcType=VARCHAR},
+      Image = #{image,jdbcType=VARCHAR},
+      Code = #{code,jdbcType=VARCHAR},
+      Level = #{level,jdbcType=VARCHAR},
+      Upload_time = #{uploadTime,jdbcType=TIMESTAMP}
+    where ResourceId = #{resourceid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectResourceByLikeName" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * from resource
+      <where>
+          Name LIKE CONCAT(CONCAT('%',#{_parameter}),'%')
+      </where>
+  </select>
+</mapper>

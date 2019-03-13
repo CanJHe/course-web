@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.canJ.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.canJ.pojo.Teacher" >
+    <id column="TeacherId" property="teacherid" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="tea_phone" property="teaPhone" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Subject" property="subject" jdbcType="VARCHAR" />
+    <result column="SelfDescn" property="selfdescn" jdbcType="VARCHAR" />
+    <result column="te_state" property="teState" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TeacherId, Name, tea_phone, Password, Subject, SelfDescn, te_state
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.canJ.pojo.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where TeacherId = #{teacherid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from teacher
+    where TeacherId = #{teacherid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.canJ.pojo.TeacherExample" >
+    delete from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.canJ.pojo.Teacher" >
+    insert into teacher (TeacherId, Name, tea_phone, 
+      Password, Subject, SelfDescn, 
+      te_state)
+    values (#{teacherid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{teaPhone,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{selfdescn,jdbcType=VARCHAR}, 
+      #{teState,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.canJ.pojo.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherid != null" >
+        TeacherId,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="teaPhone != null" >
+        tea_phone,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+      <if test="subject != null" >
+        Subject,
+      </if>
+      <if test="selfdescn != null" >
+        SelfDescn,
+      </if>
+      <if test="teState != null" >
+        te_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherid != null" >
+        #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teaPhone != null" >
+        #{teaPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="selfdescn != null" >
+        #{selfdescn,jdbcType=VARCHAR},
+      </if>
+      <if test="teState != null" >
+        #{teState,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.canJ.pojo.TeacherExample" resultType="java.lang.Integer" >
+    select count(*) from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update teacher
+    <set >
+      <if test="record.teacherid != null" >
+        TeacherId = #{record.teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teaPhone != null" >
+        tea_phone = #{record.teaPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        Password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subject != null" >
+        Subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selfdescn != null" >
+        SelfDescn = #{record.selfdescn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teState != null" >
+        te_state = #{record.teState,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update teacher
+    set TeacherId = #{record.teacherid,jdbcType=INTEGER},
+      Name = #{record.name,jdbcType=VARCHAR},
+      tea_phone = #{record.teaPhone,jdbcType=VARCHAR},
+      Password = #{record.password,jdbcType=VARCHAR},
+      Subject = #{record.subject,jdbcType=VARCHAR},
+      SelfDescn = #{record.selfdescn,jdbcType=VARCHAR},
+      te_state = #{record.teState,jdbcType=SMALLINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.canJ.pojo.Teacher" >
+    update teacher
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teaPhone != null" >
+        tea_phone = #{teaPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        Subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="selfdescn != null" >
+        SelfDescn = #{selfdescn,jdbcType=VARCHAR},
+      </if>
+      <if test="teState != null" >
+        te_state = #{teState,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where TeacherId = #{teacherid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.canJ.pojo.Teacher" >
+    update teacher
+    set Name = #{name,jdbcType=VARCHAR},
+      tea_phone = #{teaPhone,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      Subject = #{subject,jdbcType=VARCHAR},
+      SelfDescn = #{selfdescn,jdbcType=VARCHAR},
+      te_state = #{teState,jdbcType=SMALLINT}
+    where TeacherId = #{teacherid,jdbcType=INTEGER}
+  </update>
+</mapper>

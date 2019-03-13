@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="course-common" />
+        <module name="course-dao" />
+        <module name="course-pojo" />
+        <module name="course-service" />
+        <module name="course-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="course-common" target="1.8" />
+      <module name="course-dao" target="1.8" />
+      <module name="course-parent" target="1.8" />
+      <module name="course-pojo" target="1.8" />
+      <module name="course-service" target="1.8" />
+      <module name="course-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

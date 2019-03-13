@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/course-parent/course-common/course-common.iml" filepath="$PROJECT_DIR$/course-parent/course-common/course-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/course-parent/course-dao/course-dao.iml" filepath="$PROJECT_DIR$/course-parent/course-dao/course-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/course-parent/course-parent.iml" filepath="$PROJECT_DIR$/course-parent/course-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/course-parent2.0.iml" filepath="$PROJECT_DIR$/.idea/course-parent2.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/course-parent/course-pojo/course-pojo.iml" filepath="$PROJECT_DIR$/course-parent/course-pojo/course-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/course-parent/course-service/course-service.iml" filepath="$PROJECT_DIR$/course-parent/course-service/course-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/course-parent/course-web/course-web.iml" filepath="$PROJECT_DIR$/course-parent/course-web/course-web.iml" />
+    </modules>
+  </component>
+</project>

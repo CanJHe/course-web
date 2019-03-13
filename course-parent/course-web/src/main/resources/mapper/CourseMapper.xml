@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.canJ.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.canJ.pojo.Course" >
+    <id column="courId" property="courid" jdbcType="INTEGER" />
+    <result column="StudentId" property="studentid" jdbcType="INTEGER" />
+    <result column="TeacherId" property="teacherid" jdbcType="INTEGER" />
+    <result column="courNumber" property="cournumber" jdbcType="VARCHAR" />
+    <result column="courName" property="courname" jdbcType="VARCHAR" />
+    <result column="courCredit" property="courcredit" jdbcType="INTEGER" />
+    <result column="courGrade" property="courgrade" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    courId, StudentId, TeacherId, courNumber, courName, courCredit, courGrade
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.canJ.pojo.CourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where courId = #{courid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course
+    where courId = #{courid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.canJ.pojo.CourseExample" >
+    delete from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.canJ.pojo.Course" >
+    insert into course (courId, StudentId, TeacherId, 
+      courNumber, courName, courCredit, 
+      courGrade)
+    values (#{courid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{teacherid,jdbcType=INTEGER}, 
+      #{cournumber,jdbcType=VARCHAR}, #{courname,jdbcType=VARCHAR}, #{courcredit,jdbcType=INTEGER}, 
+      #{courgrade,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.canJ.pojo.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courid != null" >
+        courId,
+      </if>
+      <if test="studentid != null" >
+        StudentId,
+      </if>
+      <if test="teacherid != null" >
+        TeacherId,
+      </if>
+      <if test="cournumber != null" >
+        courNumber,
+      </if>
+      <if test="courname != null" >
+        courName,
+      </if>
+      <if test="courcredit != null" >
+        courCredit,
+      </if>
+      <if test="courgrade != null" >
+        courGrade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courid != null" >
+        #{courid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null" >
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null" >
+        #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="cournumber != null" >
+        #{cournumber,jdbcType=VARCHAR},
+      </if>
+      <if test="courname != null" >
+        #{courname,jdbcType=VARCHAR},
+      </if>
+      <if test="courcredit != null" >
+        #{courcredit,jdbcType=INTEGER},
+      </if>
+      <if test="courgrade != null" >
+        #{courgrade,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.canJ.pojo.CourseExample" resultType="java.lang.Integer" >
+    select count(*) from course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update course
+    <set >
+      <if test="record.courid != null" >
+        courId = #{record.courid,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentid != null" >
+        StudentId = #{record.studentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherid != null" >
+        TeacherId = #{record.teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cournumber != null" >
+        courNumber = #{record.cournumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courname != null" >
+        courName = #{record.courname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courcredit != null" >
+        courCredit = #{record.courcredit,jdbcType=INTEGER},
+      </if>
+      <if test="record.courgrade != null" >
+        courGrade = #{record.courgrade,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update course
+    set courId = #{record.courid,jdbcType=INTEGER},
+      StudentId = #{record.studentid,jdbcType=INTEGER},
+      TeacherId = #{record.teacherid,jdbcType=INTEGER},
+      courNumber = #{record.cournumber,jdbcType=VARCHAR},
+      courName = #{record.courname,jdbcType=VARCHAR},
+      courCredit = #{record.courcredit,jdbcType=INTEGER},
+      courGrade = #{record.courgrade,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.canJ.pojo.Course" >
+    update course
+    <set >
+      <if test="studentid != null" >
+        StudentId = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="teacherid != null" >
+        TeacherId = #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="cournumber != null" >
+        courNumber = #{cournumber,jdbcType=VARCHAR},
+      </if>
+      <if test="courname != null" >
+        courName = #{courname,jdbcType=VARCHAR},
+      </if>
+      <if test="courcredit != null" >
+        courCredit = #{courcredit,jdbcType=INTEGER},
+      </if>
+      <if test="courgrade != null" >
+        courGrade = #{courgrade,jdbcType=INTEGER},
+      </if>
+    </set>
+    where courId = #{courid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.canJ.pojo.Course" >
+    update course
+    set StudentId = #{studentid,jdbcType=INTEGER},
+      TeacherId = #{teacherid,jdbcType=INTEGER},
+      courNumber = #{cournumber,jdbcType=VARCHAR},
+      courName = #{courname,jdbcType=VARCHAR},
+      courCredit = #{courcredit,jdbcType=INTEGER},
+      courGrade = #{courgrade,jdbcType=INTEGER}
+    where courId = #{courid,jdbcType=INTEGER}
+  </update>
+</mapper>

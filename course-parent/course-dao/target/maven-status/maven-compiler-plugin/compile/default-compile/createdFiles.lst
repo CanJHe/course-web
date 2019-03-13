@@ -1,0 +1,15 @@
+com\canJ\mapper\CategoryMapper.class
+com\canJ\mapper\RemarkMapper.class
+com\canJ\mapper\UserMapper.class
+com\canJ\mapper\ResourceMapper.class
+com\canJ\mapper\StudentMapper.class
+com\canJ\mapper\CollectionStuMapper.class
+com\canJ\mapper\CollectionTeaMapper.class
+com\canJ\mapper\PostsStuMapper.class
+com\canJ\mapper\PostsTeaMapper.class
+com\canJ\mapper\RemarkResponseStuMapper.class
+com\canJ\mapper\FocusStuMapper.class
+com\canJ\mapper\CourseMapper.class
+com\canJ\mapper\TeacherMapper.class
+com\canJ\mapper\RemarkResponseTeaMapper.class
+com\canJ\mapper\FocusTeaMapper.class

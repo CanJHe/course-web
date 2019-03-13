@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+
+    <!-- 配置Controller扫描 -->
+    <context:component-scan base-package="com.canJ.controller,com.canJ.aspect"/>
+
+    <!-- 加载file.properties属性文件  -->
+    <context:property-placeholder location="classpath:config/file.properties"/>
+
+    <!-- 使aop切面在controller中生效  -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!-- 配置注解驱动 -->
+    <mvc:annotation-driven validator="validator"/>
+
+    <!-- 校验器，配置validator -->
+    <bean id="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="validationMessageSource"/>
+    </bean>
+
+    <!--配置validationMessageSource-->
+    <bean id="validationMessageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <!-- 指定校验信息的资源文件的基本文件名称，不包括后缀，后缀默认是properties -->
+        <property name="basenames">
+            <list>
+                <value>config.customValidationMessages</value>
+            </list>
+        </property>
+        <!-- 指定文件的编码 -->
+        <property name="fileEncodings" value="utf8"/>
+        <!-- 对资源文件内容缓存的时间，单位秒 -->
+        <property name="cacheSeconds" value="120"/>
+    </bean>
+
+    <!-- 全局异常处理器
+	只要你实现了HandlerExceptionResolver接口，这个
+	类就是一个全局异常处理器-->
+    <bean class="com.canJ.exception.GrobalExceptionResolver"></bean>
+
+
+    <!--springmvc拦截器-->
+    <mvc:interceptors>
+        <!-- 多个拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/> <!-- 拦截所有 -->
+            <!--不拦截的-->
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/skip/*"/>
+            <mvc:exclude-mapping path="/student/stuLogin"/>
+            <mvc:exclude-mapping path="/student/forget"/>
+            <mvc:exclude-mapping path="/teacher/forget"/>
+            <mvc:exclude-mapping path="/user/forget"/>
+            <mvc:exclude-mapping path="/user/register"/>
+            <mvc:exclude-mapping path="/user/adlogin"/>
+            <mvc:exclude-mapping path="/teacher/login"/>
+            <mvc:exclude-mapping path="/student/reset"/>
+            <mvc:exclude-mapping path="/user/reset"/>
+            <mvc:exclude-mapping path="/teacher/reset"/>
+            <mvc:exclude-mapping path="/user/resetPass"/>
+            <mvc:exclude-mapping path="/teacher/resetPass"/>
+            <mvc:exclude-mapping path="/student/stuDetail"/>
+            <mvc:exclude-mapping path="/student/stuReset"/>
+
+            <mvc:exclude-mapping path="/resource/download/*"/>
+            <mvc:exclude-mapping path="/resource/resources"/>
+            <mvc:exclude-mapping path="/resource/resource"/>
+            <mvc:exclude-mapping path="/resource/resource*/*"/>
+
+            <!-- 自定义的拦截器类 -->
+            <bean class="com.canJ.Interceptor.LoginInterceptor">
+                <!-- 虽然静态资源已经排除了，但还是会被拦截到,在拦截器中放行允许的url-->
+                <property name="allowUrls">
+                    <list>
+                        <value>/css</value>
+                        <value>/js</value>
+                        <value>/fonts</value>
+                        <value>/images</value>
+                        <value>/uploadFile</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+     <!--dispatcher /全部拦截了，现在对静态资源放行-->
+    <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
+    <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
+    <mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
+    <mvc:resources location="/WEB-INF/fonts/" mapping="/fonts/**"/>
+    <mvc:resources location="/uploadFile/" mapping="/uploadFile/**"/>
+
+
+    <!-- 配置视图解析器 -->
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 前缀 -->
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <!-- 后缀 -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--默认从Spring的上下文中获取id为multipartResolver的bean作为它的MutipartResolver-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--最大上传大小-->
+        <property name="maxUploadSize" value="2097152"/>
+        <!--最大内存大小-->
+        <!--<property name="maxInMemorySize" value="2097152"/>-->
+        <!--临时文件路径-->
+        <!--<property name="uploadTempDir" value=""/>-->
+    </bean>
+</beans>
+        
